@@ -6,9 +6,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const { celebrate, Joi } = require('celebrate');
+const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./midllewares/logger');
 require('dotenv').config();
-const helmet = require('helmet')
 
 const dbUrl = (NODE_ENV === 'production' ? DATABASE : 'mongodb://localhost:27017/newsdb');
 const routeToArticles = require('./routes/articles');

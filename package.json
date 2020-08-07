@@ -4,8 +4,8 @@
   "description": "YandexPraktikum final practical work",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js mode=development",
-    "start": "node app.js mode=production"
+    "dev": "nodemon app.js NODE_ENV=development",
+    "start": "node app.js NODE_ENV=production"
   },
   "repository": {
     "type": "git",
