@@ -1,0 +1,11 @@
+/* eslint no-underscore-dangle: ["off", { "allow": ["foo_","._id", "x._bar"] }] */
+/* eslint no-underscore-dangle: 0 */
+/* eslint array-callback-return: ["off"] */
+/* eslint no-console: ["error", { allow: ["info"] }] */
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "no-underscore-dangle": "off",
+    "consistent-return": "off"
+  }
+}
