@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const { celebrate, Joi } = require('celebrate');
 const helmet = require('helmet');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const { requestLogger, errorLogger } = require('./midllewares/logger');
 require('dotenv').config();
 
@@ -21,10 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(helmet());
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
+
+app.use(cookieParser());
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
@@ -33,6 +33,28 @@ mongoose.connect(dbUrl, {
 });
 
 app.use(requestLogger);
+
+const allowedOrigins = [
+  'http://localhost:8081',
+  'https://ivankhoda.github.io/news-explorer-frontend/'
+];
+app.use(cors(
+  {
+    origin(origin, callback) {
+      // allow requests with no origin
+      // (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = 'The CORS policy for this site does not '
+          + 'allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    exposedHeaders: ['Content-Length'],
+    credentials: true,
+  },
+));
 
 app.post('/signin',
   celebrate({

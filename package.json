@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js NODE_ENV=development",
-    "start": "node app.js NODE_ENV=production"
+    "start": "node app.js NODE_ENV=production",
+    "deploy": "git add . && git commit -m 'Upload fixes' && git push -u origin master"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,8 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "celebrate": "^12.1.2",
+    "cookieparser": "^0.1.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-winston": "^4.0.5",
@@ -31,9 +34,10 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "cookie-parser": "^1.4.5",
     "eslint": "^7.2.0",
-    "eslint-plugin-import": "^2.22.0",
     "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
     "nodemon": "^2.0.4"
   }
 }
