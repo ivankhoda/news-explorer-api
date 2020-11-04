@@ -43,13 +43,13 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return user.findUserByCreds(email, password)
     .then((u) => {
-      res.send({
-        token: jwt.sign(
-          { _id: u._id },
-          NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
-          { expiresIn: '7d' },
-        ),
-      });
+      const accessToken = jwt.sign(
+        { _id: u._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        { expiresIn: '7d' },
+      );
+      res.cookie('jwt', accessToken, { secure: true, httpOnly: true });
+      res.send({ token: accessToken });
     }, (err) => {
       throw new NotAuthorized(`${err}`);
     })
