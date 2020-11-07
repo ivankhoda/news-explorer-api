@@ -2,7 +2,7 @@ const routerToUsers = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { getUser } = require('../controllers/users');
 
-routerToUsers.get('/users/me',
+routerToUsers.get('/api/users/me',
   celebrate({
     headers: Joi.object().keys({
       authorization: Joi.string().required(),

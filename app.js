@@ -36,27 +36,30 @@ app.use(requestLogger);
 
 const allowedOrigins = [
   'http://localhost:8081',
-  'https://ivankhoda.github.io/news-explorer-frontend/'
-];
-app.use(cors(
-  {
-    origin(origin, callback) {
-      // allow requests with no origin
-      // (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg = 'The CORS policy for this site does not '
-          + 'allow access from the specified Origin.';
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    },
-    exposedHeaders: ['Content-Length'],
-    credentials: true,
-  },
-));
+  'https://ivankhoda.github.io/news-explorer-frontend/',
 
-app.post('/signin',
+];
+// app.use(cors(
+//   {
+//     origin(origin, callback) {
+//       // allow requests with no origin
+//       // (like mobile apps or curl requests)
+//       if (!origin) return callback(null, true);
+//       if (allowedOrigins.indexOf(origin) === -1) {
+//         const msg = 'The CORS policy for this site does not '
+//           + 'allow access from the specified Origin.';
+//         return callback(new Error(msg), false);
+//       }
+//       return callback(null, true);
+//     },
+//     exposedHeaders: ['Content-Length'],
+//     credentials: true,
+//   },
+// ));
+app.use(cors());
+app.options('*', cors());
+
+app.post('/api/signin',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().email().required(),
@@ -66,7 +69,7 @@ app.post('/signin',
 
   login);
 
-app.post('/signup',
+app.post('/api/signup',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().required().min(2).max(30),

@@ -3,7 +3,7 @@ const { celebrate, Joi } = require('celebrate');
 
 const { getArticle, createArticle, deleteArticleById } = require('../controllers/articles');
 
-routerToArticles.get('/articles',
+routerToArticles.get('/api/articles',
   celebrate({
     headers: Joi.object().keys({
       authorization: Joi.string().required(),
@@ -12,7 +12,7 @@ routerToArticles.get('/articles',
 
   getArticle);
 
-routerToArticles.post('/articles',
+routerToArticles.post('/api/articles',
   celebrate({
     headers: Joi.object().keys({
       authorization: Joi.string().required(),
@@ -30,7 +30,7 @@ routerToArticles.post('/articles',
 
   createArticle);
 
-routerToArticles.delete('/articles/:id',
+routerToArticles.delete('/api/articles/:id',
   celebrate({
     params: Joi.object().keys({
       id: Joi.string().hex().length(24),
