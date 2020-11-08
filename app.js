@@ -34,11 +34,11 @@ mongoose.connect(dbUrl, {
 
 app.use(requestLogger);
 
-const allowedOrigins = [
-  'http://localhost:8081',
-  'https://ivankhoda.github.io/news-explorer-frontend/',
-
-];
+// const allowedOrigins = [
+//   'http://localhost:8081',
+//   'https://ivankhoda.github.io/news-explorer-frontend/',
+//
+// ];
 // app.use(cors(
 //   {
 //     origin(origin, callback) {
@@ -56,8 +56,8 @@ const allowedOrigins = [
 //     credentials: true,
 //   },
 // ));
-app.use(cors());
-app.options('*', cors());
+// app.use(cors());
+// app.options('*', cors());
 
 app.post('/api/signin',
   celebrate({
@@ -81,7 +81,7 @@ app.post('/api/signup',
   createUser);
 
 app.use(auth);
-app.use('/', routeToUser, routeToArticles);
+app.use('/api', routeToUser, routeToArticles);
 
 app.use(errorLogger);
 
