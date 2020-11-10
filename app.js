@@ -34,28 +34,28 @@ mongoose.connect(dbUrl, {
 
 app.use(requestLogger);
 
-// const allowedOrigins = [
-//   'http://localhost:8081',
-//   'https://ivankhoda.github.io/news-explorer-frontend/',
-//
-// ];
-// app.use(cors(
-//   {
-//     origin(origin, callback) {
-//       // allow requests with no origin
-//       // (like mobile apps or curl requests)
-//       if (!origin) return callback(null, true);
-//       if (allowedOrigins.indexOf(origin) === -1) {
-//         const msg = 'The CORS policy for this site does not '
-//           + 'allow access from the specified Origin.';
-//         return callback(new Error(msg), false);
-//       }
-//       return callback(null, true);
-//     },
-//     exposedHeaders: ['Content-Length'],
-//     credentials: true,
-//   },
-// ));
+const allowedOrigins = [
+  'http://localhost:8081',
+  'https://ivankhoda.github.io/news-explorer-frontend/',
+
+];
+app.use(cors(
+  {
+    origin(origin, callback) {
+      // allow requests with no origin
+      // (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = 'The CORS policy for this site does not '
+          + 'allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    exposedHeaders: ['Content-Length'],
+    credentials: true,
+  },
+));
 // app.use(cors());
 // app.options('*', cors());
 
@@ -81,7 +81,7 @@ app.post('/api/signup',
   createUser);
 
 app.use(auth);
-app.use('/api', routeToUser, routeToArticles);
+app.use('/', routeToUser, routeToArticles);
 
 app.use(errorLogger);
 
